@@ -71,7 +71,15 @@ Keep the feedback supportive, actionable, and personalized.
       max_tokens: 800,
     });
 
-    const aiFeedback = completion.choices[0]?.message?.content || 'No feedback generated';
+    // Check if we got a valid response
+    if (!completion.choices || completion.choices.length === 0 || !completion.choices[0]?.message?.content) {
+      return NextResponse.json(
+        { error: 'No feedback generated from OpenAI' },
+        { status: 500 }
+      );
+    }
+
+    const aiFeedback = completion.choices[0].message.content;
 
     // Save the feedback to the database
     const updatedEntry = upsertEntry({

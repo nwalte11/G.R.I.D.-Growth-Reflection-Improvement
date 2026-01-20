@@ -45,10 +45,6 @@ const physicalPrompts = [
   "What physical achievements, no matter how small, are you proud of today?",
 ];
 
-function getRandomPrompt(prompts: string[]): string {
-  return prompts[Math.floor(Math.random() * prompts.length)];
-}
-
 function getDateBasedPrompt(prompts: string[], date: string): string {
   // Use date as seed for consistent prompts on the same day
   const dateNum = new Date(date).getTime();
@@ -61,13 +57,5 @@ export function generateDailyPrompts(date: string): DailyPrompts {
     psychology: getDateBasedPrompt(psychologyPrompts, date),
     writing: getDateBasedPrompt(writingPrompts, date),
     physical: getDateBasedPrompt(physicalPrompts, date),
-  };
-}
-
-export function generateRandomPrompts(): DailyPrompts {
-  return {
-    psychology: getRandomPrompt(psychologyPrompts),
-    writing: getRandomPrompt(writingPrompts),
-    physical: getRandomPrompt(physicalPrompts),
   };
 }
